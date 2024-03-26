@@ -1,6 +1,12 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\LogInController;
+use App\Http\Controllers\LogOutController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Middleware\MustBeGuestUser;
+use App\Http\Middleware\MustBeLoginUser;
 use App\Models\Blog;
 use Illuminate\Support\Facades\Route;
 
@@ -15,8 +21,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home', function () {
-    return view('welcome');
+Route::get('/admin', [AdminController::class, 'index']);
+
+Route::middleware(MustBeGuestUser::class)->group(function () {
+    Route::get('/', [BlogController::class, 'index']);
+    Route::get('/blogs', [BlogController::class, 'show']);
+    Route::get('/blogs/{blog:id}', [BlogController::class, 'detail']);
+    Route::post('logout', [LogOutController::class, 'destory']);
 });
 
-Route::get('/blogs', [BlogController::class, 'show']);
+Route::middleware(MustBeLoginUser::class)->group(function () {
+    Route::get('/register', [RegisterController::class, 'create']);
+    Route::post('/register', [RegisterController::class, 'store']);
+
+    Route::get('/login', [LogInController::class, 'create']);
+    Route::post('/login', [LogInController::class, 'store']);
+});

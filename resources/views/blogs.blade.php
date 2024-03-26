@@ -1,56 +1,4 @@
-<!doctype html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-</head>
-
-<style>
-    .hover li:hover {
-        border-bottom: 3px solid blue;
-    }
-</style>
-
-<body class="h-screen">
-    <nav class="h-24 bg-slate-800 text-white">
-        <div class=" mx-28 flex justify-between items-center p-2">
-            <div>
-                <img src="logo.svg" alt="logo" class="w-16">
-            </div>
-            <ul class="flex font-semibold hover">
-                <li class="px-6 text-xl p-3"><a href="/home">Home</a></li>
-                <li class="px-6 text-xl p-3"><a href="/blogs">Blogs</a></li>
-                <li class="px-6 text-xl p-3"><a href="">Home</a></li>
-                <li class="px-6 text-xl p-3"><a href="">Home</a></li>
-            </ul>
-            <div class="flex items-center">
-                <div class="px-4">
-                    <a href="#">
-                        <ul class="flex font-bold">
-                            <li class="px-4 text-4xl">
-                                <span class="material-symbols-outlined"">
-                                    settings
-                                </span>
-                            </li>
-                            <li class=" px-4 text-4xl">
-                                    <span class="material-symbols-outlined">
-                                        person
-                                    </span>
-                            </li>
-                            <li class="px-4 text-red-800 text-4xl">
-                                <span class="material-symbols-outlined">
-                                    logout
-                                </span>
-                            </li>
-                        </ul>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
+<x-layout>
     <!-- Search Bar -->
     <div class="grid place-items-center p-8">
         <div class="flex">
@@ -62,65 +10,73 @@
         <div class="flex items-center">
             <div>
                 <div>
-                    <div class="flex items-center space-x-2 cursor-pointer bg-slate-400 text-white p-4 border" onclick="document.getElementById('dropdown').classList.toggle('hidden')">
-                        <span class="text-semibold px-8">Categories</span>
+                    <div class="flex items-center space-x-2 cursor-pointer bg-slate-600 text-white p-4 border" onclick="document.getElementById('dropdown').classList.toggle('hidden')">
+                        <span class="text-semibold px-8">Filter by Category</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                         </svg>
 
                     </div>
                     <ul id="dropdown" class="w-52 max-h-[400px] absolute bg-gray-100 border shadow overflow-auto mt-4 hidden">
-
-                        <a href="">
-                            <li class=" px-3 py-3 bg-gray-100 hover:bg-gray-200">Home</li>
-                            <li class=" px-3 py-3 bg-gray-100 hover:bg-gray-200">Home</li>
-                            <li class=" px-3 py-3 bg-gray-100 hover:bg-gray-200">Home</li>
+                        @foreach($categories as $category)
+                        <a href="?category={{$category->id}}{{request('search')?'&search='.request('search'):''}}">
+                            <li class=" px-3 py-3 bg-gray-100 hover:bg-gray-200">{{$category->name}}</li>
+                            @endforeach
                         </a>
 
                     </ul>
                 </div>
             </div>
-            <div>
-                <input type="text" placeholder="Search" class="w-96 bg-slate-400 border text-white p-4 ">
-            </div>
+            <form action="">
+                @if(request('category'))
+                <input type="hidden" name="category" value="{{request('category')}}">
+                @endif
+                <input type="search" placeholder="Search" class="w-96 bg-slate-800 border text-white p-4" name="search" value="{{request('search')}}">
+                <button type="submit" class="bg-slate-600 p-4 px-8 text-white rounded-xl">Search</button>
+            </form>
         </div>
     </div>
     <!-- Blogs Show Pages -->
     <div>
         <div class="p-8 mx-8 h-screen">
-            <div class="h-80 w-{850px} grid grid-cols-5 gap-x-6 mb-12">
+            <div class="h-96 w-{850px} grid grid-cols-5 gap-x-6 mb-12">
                 @foreach($blogs as $blog)
-                <div class="bg-white border rounded-xl shadow-lg">
-                    <img class="w-full border rounded-xl" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU5UnTcMhr5DSJmr1UyLyTxrsZcTJKvjPUmGNNjfdRYA&s" alt="" />
-                    <h1 class="text-xl font-semibold p-2">
-                        {{$blog->title}}
-                    </h1>
-                    <p class="text-slate-800 p-2">{{$blog->intro}}</p>
+                <a href="/blogs/{{$blog->id}}">
+                    <div class="bg-white border rounded-xl hover:shadow-lg">
+                        <img class="w-full border rounded-xl" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU5UnTcMhr5DSJmr1UyLyTxrsZcTJKvjPUmGNNjfdRYA&s" alt="" />
+                        <h1 class="text-xl font-semibold p-2">
+                            {{$blog->title}}
+                        </h1>
+                        <p class="text-slate-800 p-2">{{$blog->intro}}</p>
 
-                    <div class="flex justify-evenly">
-                        <div class="flex">
-                            <span class="material-symbols-outlined text-yellow-400 font-bold">
-                                grade
-                            </span>
-                            <p class="text-yellow-400">4.5</p>
+                        <div class="flex justify-evenly">
+                            <div class="flex">
+                                <span class="material-symbols-outlined text-yellow-400 font-bold">
+                                    grade
+                                </span>
+                                <p class="text-yellow-400">4.5</p>
+                            </div>
+
+                            <div class="flex">
+                                <span class="material-symbols-outlined text-slate-500">
+                                    visibility
+                                </span>
+                                <p class="text-slate-500">106</p>
+                            </div>
                         </div>
 
-                        <div class="flex">
-                            <span class="material-symbols-outlined text-slate-500">
-                                visibility
-                            </span>
-                            <p class="text-slate-500">106</p>
+                        <div class="border border-black mx-4 my-3"></div>
+                        <div class="px-3 pb-1 flex items-center justify-between">
+                            <div class="flex items-center">
+                                <img class="w-10 border rounded-md" src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg" alt="" />
+                                <p class="font-bold px-2">{{$blog->user->name}}</p>
+                            </div>
+                            <div class="text-sm">
+                                <p>{{$blog->created_at->diffForHumans()}}</p>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="border border-black mx-4 my-3"></div>
-                    <div class="px-3 pb-1 flex items-center">
-                        <img class="w-10 border rounded-md" src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg" alt="" />
-                        <p class="font-bold px-2">Mr.Jones</p>
-                    </div>
-                </div>
+                </a>
                 @endforeach
             </div>
-</body>
-
-</html>
+</x-layout>
