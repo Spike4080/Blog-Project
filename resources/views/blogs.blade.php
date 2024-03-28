@@ -18,6 +18,9 @@
 
                     </div>
                     <ul id="dropdown" class="w-52 max-h-[400px] absolute bg-gray-100 border shadow overflow-auto mt-4 hidden">
+                        <a href="/blogs">
+                            <li class=" px-3 py-3 bg-gray-100 hover:bg-gray-200">All</li>
+                        </a>
                         @foreach($categories as $category)
                         <a href="?category={{$category->id}}{{request('search')?'&search='.request('search'):''}}">
                             <li class=" px-3 py-3 bg-gray-100 hover:bg-gray-200">{{$category->name}}</li>
@@ -43,7 +46,7 @@
                 @foreach($blogs as $blog)
                 <a href="/blogs/{{$blog->id}}">
                     <div class="bg-white border rounded-xl hover:shadow-lg">
-                        <img class="w-full border rounded-xl" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU5UnTcMhr5DSJmr1UyLyTxrsZcTJKvjPUmGNNjfdRYA&s" alt="" />
+                        <img class="w-full h-96 border rounded-xl" src="{{$blog->photo}}" alt="" />
                         <h1 class="text-xl font-semibold p-2">
                             {{$blog->title}}
                         </h1>

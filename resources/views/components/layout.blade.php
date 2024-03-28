@@ -18,7 +18,7 @@
     <nav class="h-24 bg-slate-800 text-white">
         <div class=" mx-28 flex justify-between items-center p-2">
             <div>
-                <img src="logo.svg" alt="logo" class="w-16">
+                <img src="/logo.svg" alt="logo" class="w-16">
             </div>
             <ul class="flex font-semibold hover">
                 <li class="px-6 text-xl p-3"><a href="/">Home</a></li>
@@ -38,24 +38,30 @@
                         </li>
                         @else
                         <li class="px-4 text-4xl">
-                            <form action="">
-                                @csrf
-
-                                <button type="submit" class="text-sm border border-blue-800 hover:bg-blue-500 px-5 p-3 rounded-lg flex items-center">
-                                    <span class="material-symbols-outlined"">
+                            <a href="blogs/blog/create" class="text-sm border border-blue-800 hover:bg-blue-500 px-5 p-3 rounded-lg flex items-center">
+                                <span class="material-symbols-outlined"">
                                         edit_square
                                     </span>
                                     <p class=" pl-1">Write</p>
-                                </button>
-                            </form>
+                            </a>
                         </li>
+                        @if(!auth()->user()->is_admin)
                         <li class=" px-4 text-4xl grid place-items-center">
-                            <a href="/admin">
+                            <a href="/users/user/profile">
                                 <span class="material-symbols-outlined">
                                     person
                                 </span>
                             </a>
                         </li>
+                        @else
+                        <li class=" px-4 text-4xl grid place-items-center">
+                            <a href="/admin/blogs">
+                                <span class="material-symbols-outlined">
+                                    person
+                                </span>
+                            </a>
+                        </li>
+                        @endif
                         <li class="px-3 text-red-800 text-4xl items-center flex justify-center">
                             <form action="/logout" method="POST">
                                 @csrf
