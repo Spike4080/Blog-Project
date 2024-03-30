@@ -162,11 +162,11 @@
         @enderror
         <div>
             <label>Body</label>
-            <textarea type="text" placeholder="Body" name="body" value="{{old('body',$blog->body)}}"></textarea>
+            <textarea type="text" placeholder="Body" name="body">{{old('body',$blog->body)}}</textarea>
 
         </div>
         @error('body')
-        <p>{{$message}}</p>
+        <p>{{$message}}</p>Category
         @enderror
         <div>
             <label>Body</label>

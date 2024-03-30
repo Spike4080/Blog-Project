@@ -15,6 +15,15 @@
                     <div class="flex px-16">
                         <h1 class="text-xl">Username - </h1>
                         <p class="text-base px-1 flex items-center">{{$user->username}}</p>
+                        <p>{{$user->role_id}}</p>
+                    </div>
+                    <div class="mt-10 flex justify-between">
+                        <a href="/users/user/{{auth()->user()->id}}/profile/edit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">Edit Profile</a>
+                        <form action="/users/user/{{auth()->user()->id}}/profile/delete" method="POST" class="inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete Account</button>
+                        </form>
                     </div>
                 </div>
             </div>

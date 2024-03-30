@@ -43,6 +43,7 @@
     <div>
         <div class="p-8 mx-8 h-screen">
             <div class="h-96 w-{850px} grid grid-cols-5 gap-x-6 mb-12">
+                @if($blogs->count()>0)
                 @foreach($blogs as $blog)
                 <a href="/blogs/{{$blog->id}}">
                     <div class="bg-white border rounded-xl hover:shadow-lg">
@@ -81,5 +82,12 @@
                     </div>
                 </a>
                 @endforeach
+                @else
+                <h1 class="text-4xl font-bold">No Blogs Found</h1>
+                @endif
             </div>
+        </div>
+        <div>
+            {{ $blogs->links() }}
+        </div>
 </x-layout>

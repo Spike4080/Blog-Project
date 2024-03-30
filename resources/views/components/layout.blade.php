@@ -45,9 +45,17 @@
                                     <p class=" pl-1">Write</p>
                             </a>
                         </li>
-                        @if(!auth()->user()->is_admin)
+                        @if(auth()->user()->role_id == 1)
                         <li class=" px-4 text-4xl grid place-items-center">
-                            <a href="/users/user/profile">
+                            <a href="/admin/blogs">
+                                <span class="material-symbols-outlined">
+                                    person
+                                </span>
+                            </a>
+                        </li>
+                        @elseif(auth()->user()->role_id == 2)
+                        <li class=" px-4 text-4xl grid place-items-center">
+                            <a href="/admin/blogs">
                                 <span class="material-symbols-outlined">
                                     person
                                 </span>
@@ -55,7 +63,7 @@
                         </li>
                         @else
                         <li class=" px-4 text-4xl grid place-items-center">
-                            <a href="/admin/blogs">
+                            <a href="/users/user/profile">
                                 <span class="material-symbols-outlined">
                                     person
                                 </span>

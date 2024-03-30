@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
+    <title>Register Form</title>
     <style>
         body {
             margin: 0 auto;
@@ -45,26 +45,6 @@
             outline: none;
             font-size: 1rem;
             border-bottom: 2px solid #bbb;
-            box-sizing: border-box;
-            width: 100%;
-            background: transparent;
-        }
-
-        div textarea {
-            padding: 10px;
-            border: none;
-            outline: none;
-            font-size: 1rem;
-            border-bottom: 2px solid #bbb;
-            box-sizing: border-box;
-            width: 100%;
-            background: transparent;
-        }
-
-        div select {
-            padding: 10px;
-            outline: none;
-            font-size: 1rem;
             box-sizing: border-box;
             width: 100%;
             background: transparent;
@@ -124,71 +104,50 @@
 </head>
 
 <body>
-    <form action="/blogs/blog/store" method="POST" enctype="multipart/form-data">
+    <form action="/users/user/{{$user->id}}/profile/update" method="POST">
+        @method('PATCH')
+        <h1>Edit Form</h1>
         @csrf
-        <h1>Blog Create Form</h1>
         <div>
-            <label>Title</label>
-            <input type="text" placeholder="Title" name="title" value="{{old('title')}}">
-
+            <label>Name</label>
+            <input type="text" placeholder="Name" name="name" value="{{old('name',$user->name)}}">
         </div>
-        @error('title')
+        @error('name')
         <p>{{$message}}</p>
         @enderror
         <div>
-            <label>Photo</label>
-            <input type="file" placeholder="Title" name="photo"">
+            <label>Username</label>
+            <input type="text" placeholder="Username" name="username" value="{{old('username',$user->username)}}">
 
         </div>
-        @error('title')
+        @error('username')
         <p>{{$message}}</p>
         @enderror
         <div>
-            <label>Intro</label>
-            <input type=" text" placeholder="Intro" name="intro">
+            <label>Email</label>
+            <input type="email" placeholder="Email" name="email" value="{{old('email',$user->email)}}">
 
         </div>
-        @error('intro')
+        @error('email')
         <p>{{$message}}</p>
         @enderror
         <div>
-            <label>Slug</label>
-            <input type="text" placeholder="Slug" name="slug">
+            <label>Password</label>
+            <input type="password" placeholder="Password" name="password">
 
         </div>
-        @error('slug')
+        @error('password')
         <p>{{$message}}</p>
         @enderror
         <div>
-            <label>Body</label>
-            <textarea type="text" placeholder="Body" name="body"></textarea>
+            <label>Confirm Password</label>
+            <input type="password" placeholder="Password" name="password_confirmation">
 
         </div>
-        @error('body')
+        @error('password')
         <p>{{$message}}</p>
         @enderror
-        <div>
-            <label>Category</label>
-            <select name="category_id">
-                @foreach($categories as $category)
-                <option value="{{$category->id}}" name="category_id">{{$category->name}}</option>
-                @endforeach
-            </select>
-
-        </div>
-        @error('Body')
-        <p>{{$message}}</p>
-        @enderror
-        <button type=" submit">Create Blog</button>
-        <div class="line"></div>
-        <div class="flex">
-            <div>
-                <span>Don't have an account ? </span>
-            </div>
-            <p>
-                <a href="/register">Register</a>
-            </p>
-        </div>
+        <button type="submit">Create Account</button>
     </form>
 </body>
 

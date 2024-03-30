@@ -14,10 +14,11 @@ class RegisterController extends Controller
     public function store()
     {
         request()->validate([
-            'name' => ['required'],
-            'username' => ['required'],
-            'email' => ['required', 'email'],
-            'password' => ['required', 'confirmed', 'min:3']
+            'name' => ['required', 'min:2', 'max:30'],
+            'username' => ['required', 'min:2', 'max:30'],
+            'email' => ['required', 'email', 'max:40'],
+            'password' => ['required', 'confirmed', 'min:2', 'max:30'],
+            'role_id' => ['nullable']
         ]);
 
         $user = new User;
@@ -25,6 +26,7 @@ class RegisterController extends Controller
         $user->username = request('username');
         $user->email = request('email');
         $user->password = request('password');
+        $user->role_id = auth()->user()->role_id ?? 3;
         $user->save();
 
         return redirect('/');

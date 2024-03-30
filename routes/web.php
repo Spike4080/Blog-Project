@@ -37,14 +37,23 @@ Route::middleware(MustBeAdminUser::class)->group(function () {
 Route::middleware(MustBeGuestUser::class)->group(function () {
     Route::get('/', [BlogController::class, 'index']);
     Route::get('/blogs', [BlogController::class, 'show']);
-    Route::get('/blogs/{blog:id}', [BlogController::class, 'detail']);
+    Route::get('/blogs/{blog}', [BlogController::class, 'detail']);
     Route::post('/blogs/{blog}/comment/store', [CommentController::class, 'store']);
     Route::post('logout', [LogOutController::class, 'destory']);
     // Create Blogs
     Route::get('/blogs/blog/create', [BlogController::class, 'create']);
     Route::post('/blogs/blog/store', [BlogController::class, 'store']);
+    // Edit Blogs
+    Route::get('/users/user/{blog}/edit', [UserController::class, 'edit']);
+    Route::patch('/users/user/{blog}/update', [UserController::class, 'update']);
+    Route::delete('/users/user/{blog}/delete', [UserController::class, 'delete']);
     // User Profile
     Route::get('/users/user/profile', [UserController::class, 'index']);
+    Route::get('/users/user/posts', [UserController::class, 'show']);
+    // Edit User Profile
+    Route::get('/users/user/{user}/profile/edit', [UserController::class, 'editProfile']);
+    Route::patch('/users/user/{user}/profile/update', [UserController::class, 'updateProfile']);
+    Route::delete('/users/user/{user}/profile/delete', [UserController::class, 'deleteProfile']);
 });
 
 Route::middleware(MustBeLoginUser::class)->group(function () {

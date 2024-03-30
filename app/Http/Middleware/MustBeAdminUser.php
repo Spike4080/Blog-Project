@@ -15,8 +15,9 @@ class MustBeAdminUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && auth()->user()->is_admin) {
-
+        if (auth()->check() && auth()->user()->role_id == 1) {
+            return $next($request);
+        } elseif (auth()->check() && auth()->user()->role_id == 2) {
             return $next($request);
         } else {
             return abort(403);

@@ -35,7 +35,7 @@
                                 <p class="ml-1">Profile</p>
                             </li>
                         </a>
-                        <a href="">
+                        <a href="/users/user/posts">
                             <li class="my-5 p-3 flex">
                                 <span class="material-symbols-outlined"> add_circle </span>
                                 <p class="ml-1">Posts List</p>
@@ -53,7 +53,7 @@
             <!-- left side bar -->
             <!--  -->
             <!-- Right side bar -->
-            <div class="bg-slate-200 col-span-6">
+            <div class="bg-slate-200 col-span-6 h-auto">
                 {{$slot}}
             </div>
         </div>

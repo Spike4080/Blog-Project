@@ -31,7 +31,7 @@
         <!-- comment box -->
 
         <div class="max-w-xl mx-auto bg-white rounded-md shadow-md p-4 mt-4">
-            @foreach($comments as $comment)
+            @foreach($blog['comments'] as $comment)
             <h1 class="text-lg font-semibold">{{$comment->user->name}}<span class="text-slate-600 text-sm px-3"">({{$comment->created_at->diffForHumans()}})</span></h1>
             <p>{{$comment->body}}</p>
             @endforeach

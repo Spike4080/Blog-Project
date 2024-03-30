@@ -124,12 +124,13 @@
 </head>
 
 <body>
-    <form action="/blogs/blog/store" method="POST" enctype="multipart/form-data">
+    <form action="/users/user/{{$blog->id}}/update" method="POST" enctype="multipart/form-data">
         @csrf
-        <h1>Blog Create Form</h1>
+        @method("PATCH")
+        <h1>Blog Edit Form</h1>
         <div>
             <label>Title</label>
-            <input type="text" placeholder="Title" name="title" value="{{old('title')}}">
+            <input type="text" placeholder="Title" name="title" value="{{old('title',$blog->title)}}">
 
         </div>
         @error('title')
@@ -137,7 +138,7 @@
         @enderror
         <div>
             <label>Photo</label>
-            <input type="file" placeholder="Title" name="photo"">
+            <input type="file" placeholder="Title" name="photo">
 
         </div>
         @error('title')
@@ -145,7 +146,7 @@
         @enderror
         <div>
             <label>Intro</label>
-            <input type=" text" placeholder="Intro" name="intro">
+            <input type=" text" placeholder="Intro" name="intro" value="{{old('intro',$blog->intro)}}">
 
         </div>
         @error('intro')
@@ -153,7 +154,7 @@
         @enderror
         <div>
             <label>Slug</label>
-            <input type="text" placeholder="Slug" name="slug">
+            <input type="text" placeholder="Slug" name="slug" value="{{old('slug',$blog->slug)}}">
 
         </div>
         @error('slug')
@@ -161,17 +162,17 @@
         @enderror
         <div>
             <label>Body</label>
-            <textarea type="text" placeholder="Body" name="body"></textarea>
+            <textarea type="text" placeholder="Body" name="body">{{old('body',$blog->body)}}</textarea>
 
         </div>
         @error('body')
-        <p>{{$message}}</p>
+        <p>{{$message}}</p>Category
         @enderror
         <div>
-            <label>Category</label>
+            <label>Body</label>
             <select name="category_id">
                 @foreach($categories as $category)
-                <option value="{{$category->id}}" name="category_id">{{$category->name}}</option>
+                <option value="{{$category->id}}" name="category_id" {{$blog->category_id ? 'selected' :''}}>{{$category->name}}</option>
                 @endforeach
             </select>
 
@@ -179,16 +180,7 @@
         @error('Body')
         <p>{{$message}}</p>
         @enderror
-        <button type=" submit">Create Blog</button>
-        <div class="line"></div>
-        <div class="flex">
-            <div>
-                <span>Don't have an account ? </span>
-            </div>
-            <p>
-                <a href="/register">Register</a>
-            </p>
-        </div>
+        <button type=" submit">Edit Blog</button>
     </form>
 </body>
 

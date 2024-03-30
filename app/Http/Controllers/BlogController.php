@@ -16,7 +16,7 @@ class BlogController extends Controller
     public function show()
     {
         $blogs = Blog::filter(request(['search', 'username', 'category']))
-            ->paginate(3)
+            ->paginate(5)
             ->withQueryString();
         $categories = Category::all();
         return view('blogs', [
@@ -27,10 +27,9 @@ class BlogController extends Controller
 
     public function detail(Blog $blog)
     {
-        $comments = Comment::all();
+
         return view('blog-detail', [
-            'blog' => $blog,
-            'comments' => $comments
+            'blog' => $blog->load('comments'),
         ]);
     }
 
@@ -61,6 +60,12 @@ class BlogController extends Controller
         $blog->photo = '/storage/' . request('photo')->store('/blogs');
         $blog->save();
 
-        return redirect('/admin/blogs');
+        if (auth()->check() && auth()->user()->role_id == 1) {
+            return redirect('/admin/blogs');
+        } elseif (auth()->check() && auth()->user()->role_id == 2) {
+            return redirect('/admin/blogs');
+        } else {
+            return redirect('/users/user/posts');
+        }
     }
 }
