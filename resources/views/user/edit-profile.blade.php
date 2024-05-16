@@ -104,7 +104,7 @@
 </head>
 
 <body>
-    <form action="/users/user/{{$user->id}}/profile/update" method="POST">
+    <form action="/users/user/{{$user->id}}/profile/update" method="POST" enctype="multipart/form-data">
         @method('PATCH')
         <h1>Edit Form</h1>
         @csrf
@@ -116,8 +116,15 @@
         <p>{{$message}}</p>
         @enderror
         <div>
+            <label>Photo</label>
+            <input type="file" name="photo"">
+        </div>
+        @error('photo')
+        <p>{{$message}}</p>
+        @enderror
+        <div>
             <label>Username</label>
-            <input type="text" placeholder="Username" name="username" value="{{old('username',$user->username)}}">
+            <input type=" text" placeholder="Username" name="username" value="{{old('username',$user->username)}}">
 
         </div>
         @error('username')
@@ -133,21 +140,17 @@
         @enderror
         <div>
             <label>Password</label>
-            <input type="password" placeholder="Password" name="password">
-
-        </div>
-        @error('password')
-        <p>{{$message}}</p>
-        @enderror
-        <div>
-            <label>Confirm Password</label>
-            <input type="password" placeholder="Password" name="password_confirmation">
-
-        </div>
-        @error('password')
-        <p>{{$message}}</p>
-        @enderror
-        <button type="submit">Create Account</button>
+            <input type="password" placeholder="Password" name="password" </div>
+            @error('password')
+            <p>{{$message}}</p>
+            @enderror
+            <div>
+                <label>Confirm Password</label>
+                <input type="password" placeholder="Password" name="password_confirmation" </div>
+                @error('password')
+                <p>{{$message}}</p>
+                @enderror
+                <button type="submit">Create Account</button>
     </form>
 </body>
 

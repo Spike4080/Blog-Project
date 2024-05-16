@@ -124,62 +124,19 @@
 </head>
 
 <body>
-    <form action="/blogs/blog/store" method="POST" enctype="multipart/form-data">
+    <form action="/blogs/{{$blog->id}}/comments/{{$comment->id}}/update" method="POST" enctype="multipart/form-data">
         @csrf
-        <h1>Blog Create Form</h1>
+        @method('PATCH')
+        <h1>Comment Edit Form</h1>
         <div>
-            <label>Title</label>
-            <input type="text" placeholder="Title" name="title" value="{{old('title')}}">
-
-        </div>
-        @error('title')
-        <p>{{$message}}</p>
-        @enderror
-        <div>
-            <label>Photo</label>
-            <input type="file" placeholder="Title" name="photo"">
-
-        </div>
-        @error('photo')
-        <p>{{$message}}</p>
-        @enderror
-        <div>
-            <label>Intro</label>
-            <input type=" text" placeholder="Intro" name="intro">
-
-        </div>
-        @error('intro')
-        <p>{{$message}}</p>
-        @enderror
-        <div>
-            <label>Slug</label>
-            <input type="text" placeholder="Slug" name="slug">
-
-        </div>
-        @error('slug')
-        <p>{{$message}}</p>
-        @enderror
-        <div>
-            <label>Body</label>
-            <textarea type="text" placeholder="Body" name="body"></textarea>
+            <label>Comments</label>
+            <textarea type="text" placeholder="Enter your comment" name="body">{{$comment->body}}</textarea>
 
         </div>
         @error('body')
         <p>{{$message}}</p>
         @enderror
-        <div>
-            <label>Category</label>
-            <select name="category_id">
-                @foreach($categories as $category)
-                <option value="{{$category->id}}" name="category_id">{{$category->name}}</option>
-                @endforeach
-            </select>
-
-        </div>
-        @error('Body')
-        <p>{{$message}}</p>
-        @enderror
-        <button type=" submit">Create Blog</button>
+        <button type=" submit">Edit Comment</button>
 
     </form>
 </body>

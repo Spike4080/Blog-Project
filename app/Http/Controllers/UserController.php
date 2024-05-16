@@ -74,6 +74,7 @@ class UserController extends Controller
     {
         request()->validate([
             'name' => ['required', 'min:2', 'max:30'],
+            'photo' => ['nullable', 'image'],
             'username' => ['required', 'min:2', 'max:30'],
             'email' => ['required', 'email', 'max:40'],
             'password' => ['required', 'confirmed', 'min:2', 'max:30'],
@@ -81,6 +82,7 @@ class UserController extends Controller
         ]);
 
         $user->name = request('name');
+        $user->photo = '/storage/' . request('photo')->store('/users');
         $user->username = request('username');
         $user->email = request('email');
         $user->password = request('password');

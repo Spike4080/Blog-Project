@@ -72,11 +72,16 @@
                         <div class="border border-black mx-4 my-3"></div>
                         <div class="px-3 pb-1 flex items-center justify-between">
                             <div class="flex items-center">
-                                <img class="w-10 border rounded-md" src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?cs=srgb&dl=pexels-simon-robben-614810.jpg&fm=jpg" alt="" />
+                                <img class="w-10 h-10 border rounded-full" src="{{$blog->user->photo}}" alt="" />
                                 <p class="font-bold px-2">{{$blog->user->name}}</p>
                             </div>
                             <div class="text-sm">
-                                <p>{{$blog->created_at->diffForHumans()}}</p>
+                                <span class="bg-gray-100 text-gray-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded me-2 dark:bg-gray-700 dark:text-gray-400 border border-gray-500 ">
+                                    <svg class="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
+                                    </svg>
+                                    {{$blog->created_at->diffForHumans()}}
+                                </span>
                             </div>
                         </div>
                     </div>

@@ -32,4 +32,28 @@ class CommentController extends Controller
 
         return redirect()->back();
     }
+
+    public function delete(Blog $blog, Comment $comment)
+    {
+        $comment->delete();
+        return back();
+    }
+
+    public function edit(Blog $blog, Comment $comment)
+    {
+        return view('comment.edit', [
+            'comment' => $comment,
+            'blog' => $blog
+        ]);
+    }
+
+    public function update(Blog $blog, Comment $comment)
+    {
+        $comment->user_id = auth()->id();
+        $comment->blog_id = $blog->id;
+        $comment->body = request('body');
+        $comment->save();
+
+        return redirect('/blogs');
+    }
 }

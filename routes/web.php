@@ -12,6 +12,7 @@ use App\Http\Middleware\MustBeGuestUser;
 use App\Http\Middleware\MustBeLoginUser;
 use App\Models\Blog;
 use App\Models\Comment;
+use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,6 +40,9 @@ Route::middleware(MustBeGuestUser::class)->group(function () {
     Route::get('/blogs', [BlogController::class, 'show']);
     Route::get('/blogs/{blog}', [BlogController::class, 'detail']);
     Route::post('/blogs/{blog}/comment/store', [CommentController::class, 'store']);
+    Route::delete('/blogs/{blog}/comments/{comment}/delete', [CommentController::class, 'delete']);
+    Route::get('/blogs/{blog}/comments/{comment}/edit', [CommentController::class, 'edit']);
+    Route::patch('/blogs/{blog}/comments/{comment}/update', [CommentController::class, 'update']);
     Route::post('logout', [LogOutController::class, 'destory']);
     // Create Blogs
     Route::get('/blogs/blog/create', [BlogController::class, 'create']);
